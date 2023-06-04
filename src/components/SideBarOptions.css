@@ -1,0 +1,32 @@
+.sidebar-option{
+    display: flex;
+    color: grey;
+    height: 40px;
+    align-items: center;
+    /* allows cursor to show up and ease in color transition */
+    cursor: pointer;
+    transition: 200ms color ease-in; 
+
+}
+.sidebar > hr{
+    border: 1px solid rgb(67, 65, 65);
+    width: 90%;
+    margin: 10px auto;
+}
+/* changes to white when hovered over */
+.sidebar-option:hover{
+    color: white;
+
+}
+.side-bar-icon{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.sidebar-option p{
+    margin-top: 10px;
+    margin-left: 15px;
+    font-size: 14px;
+   
+
+
+}

@@ -1,0 +1,31 @@
+.sidebar{
+    border: 1px solid black;
+    height: 100vh;
+    flex: .2;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 230px;
+    background-color: #040404;
+}
+.sidebar .logo{
+    height: 70px;
+    padding: 10px;
+    margin-right: auto;
+    
+    
+}
+/* TODO: fix spotify logo and styling */
+.logo{
+    background-color: #040404;
+    height: 2px;
+    width: 30px;
+    
+    
+    
+}
+.title{
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 14px;
+}
