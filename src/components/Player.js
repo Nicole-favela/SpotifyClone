@@ -57,7 +57,7 @@ export default function Player({code}) {
          
 
         </div>
-        {/* <BottomPlayer/> */}
+       <BottomPlayer/>
         
     </div>
   )
