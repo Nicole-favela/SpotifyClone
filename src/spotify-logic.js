@@ -16,6 +16,7 @@ export default function loginInfo(clientID){
         "user-library-modify",
         "user-read-playback-state",
         "user-modify-playback-state",
+        "user-read-recently-played",
     ]
 
   

@@ -7,14 +7,20 @@
     padding-right: 10px;
     min-width: 230px;
     background-color: #040404;
+   
 }
 .sidebar .logo{
-    height: 70px;
+    height: 60px;
+    width: 60px;
     padding: 10px;
     margin-right: auto;
+    color: white;
+    cursor: pointer;
+   
     
     
 }
+
 /* TODO: fix spotify logo and styling */
 .logo{
     background-color: #040404;

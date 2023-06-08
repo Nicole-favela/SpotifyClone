@@ -8,14 +8,28 @@ import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import SongRow from './SongRow';
 
 import { useStateValue } from "../StateProvider";
+import { useEffect, useState } from 'react';
 
 
 export default function Body({spotifyApi}) {
-  const [{user, token}, dispatch] = useStateValue()
-  if(!token){
-    console.log('our token is null: ', token)
-  }
+  const [isLoading, setIsLoading] = useState(true);
+  const [{user, recents, new_releases}, dispatch] = useStateValue()
+  // if (recents){
+  //   console.log("in body recent is: ", recents.body)
+  //   setIsLoading(false);
+  // }
+  useEffect(()=>{
+    console.log("in body recent is: ", recents?.body)
+    //console.log('new releases are: ', new_releases)
+    
+    setIsLoading(false)
+
+  }, [recents])
+  // if(!token){
+  //   console.log('our token is null: ', token)
+  // }
   return (
+    
     <div className='body'>
       
      {/* top header with avatar and search bar */}
@@ -41,14 +55,42 @@ export default function Body({spotifyApi}) {
           <MoreHorizOutlinedIcon />
 
         </div>
+
+        {/* <div>
+          {recents.body && (<p>recents is non null</p>)}
+        </div> */}
         {/* List of songs */}
-        {/* {discover_weekly?.track.items.map(()=>
+        <div>
+       
+        
+        {/* {!isLoading && recents?.body.items.track.map((item)=>
           <SongRow track={item.track}/>
         )} */}
+         {/* {recents.body !== undefined && recents.body.items.map((recent) => (
+            <SongRow track={recent.track} />
+         ))} */}
+       
+        {/* {recents?.body && recents.body.items.track.map((item)=>
+          <SongRow track={item.track}/>
+        )} */}
+
+
+        {/* this works below */}
+        {/* {!isLoading && new_releases?.body.albums.items.map((item) => (
+          <SongRow item={item} />
+        ))} */}
+         {!isLoading && recents?.body.items.map((item) => (
+          <SongRow track={item.track} />
+        ))}
+
+
+
 
       </div>
     
       
     </div>
+    </div>
+    
   )
 }

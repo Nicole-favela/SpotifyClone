@@ -40,6 +40,23 @@ export default function Player({code}) {
            playlists: playlists
         })
       })
+      spotifyApi.getMyRecentlyPlayedTracks({limit: 20}).then((recents)=>{
+        dispatch({
+          type:'SET_RECENTLY_PLAYED_TRACKS',
+          recents: recents
+
+        })
+
+      })
+      spotifyApi.getNewReleases({limit: 10, offset: 5, country: 'SE'}).then((newreleases)=>{
+        dispatch({
+          type:'SET_NEW_RELEASES',
+          new_releases: newreleases,
+
+        })
+
+
+      })
     }
 },[accessToken])
 
@@ -57,7 +74,7 @@ export default function Player({code}) {
          
 
         </div>
-       <BottomPlayer/>
+       {/* <BottomPlayer/> */}
         
     </div>
   )

@@ -4,6 +4,7 @@ export const initialState = {
     playing: false,
     item: null,
     token: null,
+    recents: null,
 }
 
 const reducer = (state, action)=>{
@@ -27,6 +28,18 @@ const reducer = (state, action)=>{
             return{
                 ...state,
                 playlists: action.playlists
+            }
+        case 'SET_RECENTLY_PLAYED_TRACKS':
+            console.log('recent tracks set');
+            return{
+                ...state,
+                recents: action.recents
+            }
+        case 'SET_NEW_RELEASES':
+            console.log('new releases set');
+            return{
+                ...state,
+                new_releases: action.new_releases,
             }
         default:
             return state; //original unchanged state

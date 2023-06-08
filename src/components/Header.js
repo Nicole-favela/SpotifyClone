@@ -20,12 +20,12 @@ export default function Header() {
 
         </div>
 
-        {/* <div className='header-right'>
-            <Avatar src={user?.images[0]?.url} alt={user?.display_name}/>
-            <h4>{user?.display_name}</h4>
+        <div className='header-right'>
+            <Avatar src={user?.body?.images[0]?.url} alt={user?.display_name}/>
+            <h4>{user?.body?.display_name}</h4>
 
         </div>
-         */}
+        
      </div>
   )
 }
