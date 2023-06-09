@@ -74,7 +74,7 @@ export default function Player({code}) {
          
 
         </div>
-       {/* <BottomPlayer/> */}
+       {/* <BottomPlayer accessToken={accessToken} trackUri={}/> */}
         
     </div>
   )

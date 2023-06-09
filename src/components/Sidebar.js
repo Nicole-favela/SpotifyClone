@@ -24,9 +24,9 @@ export default function Sidebar() {
         {playlists?.body?.items?.map(playlist=>(
         <SideBarOptions title={playlist.name}/>
         ))}
-        <SideBarOptions title="rock"/>
+        {/* <SideBarOptions title="rock"/>
         <SideBarOptions title="hip hop"/>
-        <SideBarOptions title="alternative"/>
+        <SideBarOptions title="alternative"/> */}
 
       
     

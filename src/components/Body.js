@@ -13,11 +13,12 @@ import { useEffect, useState } from 'react';
 
 export default function Body({spotifyApi}) {
   const [isLoading, setIsLoading] = useState(true);
+  const [curPlayingTrack, setCurPlayingTrack] = useState()
   const [{user, recents, new_releases}, dispatch] = useStateValue()
-  // if (recents){
-  //   console.log("in body recent is: ", recents.body)
-  //   setIsLoading(false);
-  // }
+  function chooseTrack(track){
+    setCurPlayingTrack(track)
+    
+  }
   useEffect(()=>{
     console.log("in body recent is: ", recents?.body)
     //console.log('new releases are: ', new_releases)
@@ -37,7 +38,7 @@ export default function Body({spotifyApi}) {
 
      {/* banner section */}
      <div className='info'>
-        <img src={metrospiderverse} alt="metro-boom"/>
+        <img src={recents?.body.items[0].track.album.images[0].url} alt="metro-boom"/>
         {/* {token && (<p>we have our token</p>)} */}
         {/* {user && (<p>we have our user as {user.body.display_name}</p>)} */}
         <div className='info-text'>
@@ -80,7 +81,7 @@ export default function Body({spotifyApi}) {
           <SongRow item={item} />
         ))} */}
          {!isLoading && recents?.body.items.map((item) => (
-          <SongRow track={item.track} />
+          <SongRow track={item.track} chooseTrack={chooseTrack} trackUri={curPlayingTrack?.uri}/>
         ))}
 
 

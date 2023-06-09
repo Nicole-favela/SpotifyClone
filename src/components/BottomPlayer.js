@@ -9,15 +9,15 @@ import './BottomPlayer.css'
 //playcircular
 //skip prev and next...
 
-export default function BottomPlayer({trackUri, accessToken}) {
+export default function BottomPlayer({accessToken, trackUri}) {
   const [play, setPlay] = useState(false)
   //const [{ token, item, curPlaying }, dispatch] = useStateValue();
-  // useEffect(()=>{
-  //     setPlay(true)
-  // }, [trackUri]) //update whenever trackUri changes/ whenever we change songs
-  // if(!accessToken){
-  //     return null
-  // }
+  useEffect(()=>{
+      setPlay(true)
+  }, [trackUri]) //update whenever trackUri changes/ whenever we change songs
+  if(!accessToken){
+      return null
+  }
 
   return (
     <div className='bottom-player'>
