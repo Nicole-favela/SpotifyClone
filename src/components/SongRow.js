@@ -10,12 +10,14 @@ export default function SongRow({track, chooseTrack, trackUri }) {
   const [{token, recents, new_releases}, dispatch] = useStateValue()
   function handlePlay(){
     chooseTrack(track);
+    // playerIsPlaying(true);
   };
-  if(track){
-    console.log("track is not undefined")
-  }
+  // if(track){
+  //   console.log("track is not undefined")
+  // }
  
   return (
+    <>
     <div className='song-row' onClick={handlePlay}>
         <img  className ='song-album' src={track.album.images[0].url} alt=""/>
         <div className='song-info'>
@@ -27,13 +29,15 @@ export default function SongRow({track, chooseTrack, trackUri }) {
                 {track.album.name}
             </p>
         </div>
-        <div className='bottom-player'>
-            <BottomPlayer accessToken={token} trackUri={trackUri}/>
-        </div>
-      
+       
 
 
 
     </div>
+     <div className='bottom-player'>
+     <BottomPlayer trackUri={trackUri} />
+ </div>
+ </>
+
   )
 }

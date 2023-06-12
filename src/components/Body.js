@@ -3,22 +3,61 @@ import './Body.css'
 import Header from './Header'
 import metrospiderverse from "../assets/metro-album-art.png"
 import PlayCircleFilledOutlinedIcon from '@mui/icons-material/PlayCircleFilledOutlined';
+import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import SongRow from './SongRow';
 
 import { useStateValue } from "../StateProvider";
 import { useEffect, useState } from 'react';
+import { TroubleshootSharp } from '@mui/icons-material';
 
 
 export default function Body({spotifyApi}) {
   const [isLoading, setIsLoading] = useState(true);
   const [curPlayingTrack, setCurPlayingTrack] = useState()
-  const [{user, recents, new_releases}, dispatch] = useStateValue()
+  const [togglePlay, setTogglePlay] = useState(true)
+  const [lastest, setLatest] = useState();//sets the latest album to play
+  const [{user, recents, token, playingrn, isPlaying}, dispatch] = useStateValue()
   function chooseTrack(track){
     setCurPlayingTrack(track)
     
   }
+  // function playerIsPlaying(){
+  //   setPlayStatus(isPlaying?.body.is_playing)
+  // }
+  const handlePlayClick =()=>{
+    //chooseTrack(playingrn?.body.item.TrackObject.album)
+    return setTogglePlay(!togglePlay);
+
+  }
+  const handlePauseClick=()=>{
+    return setTogglePlay(!togglePlay)
+  }
+  // useEffect(()=>{
+  //   spotifyApi.setAccessToken(token)
+  //   spotifyApi.getMyCurrentPlaybackState().then((isPlaying)=>{
+  //     dispatch({
+  //       type:'SET_IS_PLAYING',
+  //       isPlaying: isPlaying
+  
+  //     })
+  
+  //   })
+  // },[isPlaying?.body.timestamp > 10])
+  
+  useEffect(()=>{
+   
+    console.log("is pplaying state is: , ", isPlaying?.body?.is_playing)
+      if(isPlaying?.body && isPlaying?.body.is_playing || isPlaying?.body?.device?.name === "Spotify Web Player" ){
+        setTogglePlay(true)
+      }
+      else{
+        setTogglePlay(false)
+      }
+     
+  }, [isPlaying])
+  
   useEffect(()=>{
     console.log("in body recent is: ", recents?.body)
     //console.log('new releases are: ', new_releases)
@@ -51,7 +90,8 @@ export default function Body({spotifyApi}) {
       
       <div className='body-songs'>
         <div className='body-icons'>
-          <PlayCircleFilledOutlinedIcon className='body-play-icon'/>
+          {togglePlay && (<PauseCircleFilledIcon className='body-pause-icon' onClick={()=>handlePauseClick()}/>)  }
+          {!togglePlay && (<PlayCircleFilledOutlinedIcon className='body-play-icon' onClick={()=>handlePlayClick()}/>)}
           <FavoriteOutlinedIcon fontSize='medium'/>
           <MoreHorizOutlinedIcon />
 
@@ -61,7 +101,7 @@ export default function Body({spotifyApi}) {
           {recents.body && (<p>recents is non null</p>)}
         </div> */}
         {/* List of songs */}
-        <div>
+        {/* <div> */}
        
         
         {/* {!isLoading && recents?.body.items.track.map((item)=>
@@ -81,7 +121,7 @@ export default function Body({spotifyApi}) {
           <SongRow item={item} />
         ))} */}
          {!isLoading && recents?.body.items.map((item) => (
-          <SongRow track={item.track} chooseTrack={chooseTrack} trackUri={curPlayingTrack?.uri}/>
+          <SongRow track={item.track} key={item.played_at} chooseTrack={chooseTrack} trackUri={curPlayingTrack?.uri} />
         ))}
 
 
@@ -91,7 +131,7 @@ export default function Body({spotifyApi}) {
     
       
     </div>
-    </div>
+    // </div>
     
   )
 }

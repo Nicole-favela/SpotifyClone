@@ -7,7 +7,7 @@
 .header-left{
     flex: 0.5;
     min-width: 80px;
-    background-color: white;
+    background-color: rgb(33, 33, 34);
     color: grey;
     padding: 10px;
     border-radius: 30px;
@@ -16,8 +16,10 @@
 
 }
 .header-left > input{
+    background-color: rgb(33, 33, 34);
     border: none;
     width: 100%;
+    outline: none;
 }
 .header-right{
     display: flex;

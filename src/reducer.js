@@ -5,6 +5,8 @@ export const initialState = {
     item: null,
     token: null,
     recents: null,
+    playingrn: null,
+    isPlaying: null,
 }
 
 const reducer = (state, action)=>{
@@ -40,6 +42,18 @@ const reducer = (state, action)=>{
             return{
                 ...state,
                 new_releases: action.new_releases,
+            }
+       case 'SET_IS_PLAYING':
+            console.log('set state of is playing');
+            return{
+                ...state,
+                isPlaying: action.isPlaying,
+            }
+        case 'SET_CURRENTLY_PLAYING_TRACK':
+            console.log('currently playing track set');
+            return{
+                ...state,
+                playingrn: action.playingrn,
             }
         default:
             return state; //original unchanged state

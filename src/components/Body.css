@@ -48,7 +48,19 @@
     margin-bottom: 20px;
     color: rgb(41, 171, 6);
 }
+.body-icons .body-pause-icon{
+    font-size: 70px;
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: rgb(41, 171, 6);
+}
 .body-play-icon:hover{
+    transition: 100ms transform ease-in;
+    transform: scale(1.08);
+    
+}
+.body-pause-icon:hover{
     transition: 100ms transform ease-in;
     transform: scale(1.08);
     

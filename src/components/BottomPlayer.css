@@ -1,11 +1,15 @@
 .bottom-player{
     position: fixed;
-    display: flex;
+    display:flex;
     justify-content: space-between;
     bottom: 0;
-    height: 65px;
-    width: 97%;
-    background-color: #282828;
+    height: 60px;
    
+    width: 97%;
+    max-width: 1000px;
+    /* background-color: #282828; */
+    /* new background color: */
+    background-color: black;
     padding: 20px;
+    align-items: center;
 }

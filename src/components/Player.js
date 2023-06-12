@@ -21,6 +21,9 @@ export default function Player({code}) {
 
   const accessToken = useAuth(code) //custom hook
   useEffect(()=>{
+    if (!accessToken){
+      return
+    }
     if (accessToken){
       dispatch({
         type: 'SET_TOKEN',
@@ -48,6 +51,22 @@ export default function Player({code}) {
         })
 
       })
+      spotifyApi.getMyCurrentPlayingTrack().then((playingrn)=>{
+        dispatch({
+          type:'SET_CURRENTLY_PLAYING_TRACK',
+          playingrn: playingrn
+
+        })
+
+      })
+      spotifyApi.getMyCurrentPlaybackState().then((isPlaying)=>{
+        dispatch({
+          type:'SET_IS_PLAYING',
+          isPlaying: isPlaying
+
+        })
+
+      })
       spotifyApi.getNewReleases({limit: 10, offset: 5, country: 'SE'}).then((newreleases)=>{
         dispatch({
           type:'SET_NEW_RELEASES',
@@ -66,7 +85,7 @@ export default function Player({code}) {
   return (
     <div className='player'>
         <div className='player-body'>
-          {!accessToken && (<div> this shouldnt be here</div>)}
+          {/* {!accessToken && (<div> this shouldnt be here</div>)} */}
             
           
             <Sidebar/>

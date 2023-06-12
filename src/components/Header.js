@@ -14,7 +14,7 @@ export default function Header() {
         <div className='header-left'>
             <SearchOutlinedIcon/>
             <input
-            placeholder='Search artists'
+            placeholder='What do you want to listen to? '
             type='text'
             />
 

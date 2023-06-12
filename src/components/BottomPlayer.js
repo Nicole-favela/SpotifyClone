@@ -9,21 +9,23 @@ import './BottomPlayer.css'
 //playcircular
 //skip prev and next...
 
-export default function BottomPlayer({accessToken, trackUri}) {
+export default function BottomPlayer({ trackUri}) {
   const [play, setPlay] = useState(false)
-  //const [{ token, item, curPlaying }, dispatch] = useStateValue();
+  const [{ token, item, curPlaying }, dispatch] = useStateValue();
   useEffect(()=>{
       setPlay(true)
+      
   }, [trackUri]) //update whenever trackUri changes/ whenever we change songs
-  if(!accessToken){
+  if(!token){
       return null
   }
 
   return (
-    <div className='bottom-player'>
+    // <div className='bottom-player'>
      
         <SpotifyPlayer
-            token={accessToken}
+            token={token}
+            hideAttribution
             showSaveIcon
             callback={state =>{ //changes state of play to false everytime we arent playing a song
                 if(!state.isPlaying) setPlay(false)
@@ -32,7 +34,7 @@ export default function BottomPlayer({accessToken, trackUri}) {
             uris={ trackUri ? [trackUri] : []}
             styles={{
                 activeColor: '#fff',
-                bgColor: '#383838',
+                bgColor: '#000000',
                 color: '#fff',
                 loaderColor: '#fff',
                 sliderColor: '#1cb954',
@@ -44,18 +46,7 @@ export default function BottomPlayer({accessToken, trackUri}) {
     
 
         
-      {/* <div className='footer-left'>
-        <p>Album & songs</p>
-      </div>
-
-      <div className='footer-center'>
-        <p>player controles</p>
-
-      </div>
-      <div className='footer-right'>
-        <p>volume</p>
-
-      </div> */}
-    </div>
+    
+    // </div>
   )
 }
