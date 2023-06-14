@@ -14,6 +14,8 @@
     display: flex;
     align-items: center;
 
+    /* added to move search res below the input */
+    /* flex-direction: column;  */
 }
 .header-left > input{
     background-color: rgb(33, 33, 34);
@@ -26,6 +28,19 @@
     align-items: center;
 
 }
-.header-right .h4{
+.header-right .h5{
     margin-left: 10px;
+    /* background-color: black; */
 }
+/* .header-left .search-results-dropdown{
+    flex: 0.5;
+  
+    background-color: rgb(33, 33, 34);
+    color: grey;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+   
+
+} */

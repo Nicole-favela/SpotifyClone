@@ -7,6 +7,7 @@ export const initialState = {
     recents: null,
     playingrn: null,
     isPlaying: null,
+    spotifyApi: null,
 }
 
 const reducer = (state, action)=>{
@@ -54,6 +55,12 @@ const reducer = (state, action)=>{
             return{
                 ...state,
                 playingrn: action.playingrn,
+            }
+        case 'SET_SPOTIFY':
+            console.log('spotify api is set in reducer');
+            return{
+                ...state,
+                spotifyApi: action.spotifyApi,
             }
         default:
             return state; //original unchanged state

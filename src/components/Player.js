@@ -37,6 +37,10 @@ export default function Player({code}) {
           user: user
         })
       })
+      dispatch({
+        type: "SET_SPOTIFY",
+        spotifyApi: spotifyApi,
+      });
       spotifyApi.getUserPlaylists().then((playlists)=>{
         dispatch({
            type:'SET_USER_PLAYLISTS',
@@ -89,6 +93,7 @@ export default function Player({code}) {
             
           
             <Sidebar/>
+            
             <Body spotifyApi={spotifyApi}/>
          
 

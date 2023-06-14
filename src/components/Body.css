@@ -1,5 +1,5 @@
 .body{
-    /* border: 1px solid red; */
+    border: 3px solid black;
     flex: .8;
     height: 100vh;
     color: white;
@@ -71,4 +71,5 @@
 }
 .body-songs{
     margin: 20px -30px;
-}
+    
+} 

@@ -11,13 +11,16 @@ import SongRow from './SongRow';
 import { useStateValue } from "../StateProvider";
 import { useEffect, useState } from 'react';
 import { TroubleshootSharp } from '@mui/icons-material';
+import SearchResultsDropdown from './SearchResultsDropdown';
 
 
 export default function Body({spotifyApi}) {
   const [isLoading, setIsLoading] = useState(true);
   const [curPlayingTrack, setCurPlayingTrack] = useState()
   const [togglePlay, setTogglePlay] = useState(true)
-  const [lastest, setLatest] = useState();//sets the latest album to play
+  const [searchRes, setSearchRes]= useState([]);
+  
+  //const [lastest, setLatest] = useState();//sets the latest album to play
   const [{user, recents, token, playingrn, isPlaying}, dispatch] = useStateValue()
   function chooseTrack(track){
     setCurPlayingTrack(track)
@@ -34,18 +37,7 @@ export default function Body({spotifyApi}) {
   const handlePauseClick=()=>{
     return setTogglePlay(!togglePlay)
   }
-  // useEffect(()=>{
-  //   spotifyApi.setAccessToken(token)
-  //   spotifyApi.getMyCurrentPlaybackState().then((isPlaying)=>{
-  //     dispatch({
-  //       type:'SET_IS_PLAYING',
-  //       isPlaying: isPlaying
-  
-  //     })
-  
-  //   })
-  // },[isPlaying?.body.timestamp > 10])
-  
+ 
   useEffect(()=>{
    
     console.log("is pplaying state is: , ", isPlaying?.body?.is_playing)
@@ -65,15 +57,17 @@ export default function Body({spotifyApi}) {
     setIsLoading(false)
 
   }, [recents])
-  // if(!token){
-  //   console.log('our token is null: ', token)
-  // }
+ 
   return (
     
     <div className='body'>
+     
       
      {/* top header with avatar and search bar */}
-     <Header spotifyApi={ spotifyApi }/>
+     <Header searchRes={searchRes} setSearchRes={setSearchRes}/>
+     {searchRes.length > 0 &&
+        <div className='top-search-res'>Top Result</div>
+      }
 
      {/* banner section */}
      <div className='info'>
@@ -97,36 +91,22 @@ export default function Body({spotifyApi}) {
 
         </div>
 
-        {/* <div>
-          {recents.body && (<p>recents is non null</p>)}
-        </div> */}
-        {/* List of songs */}
-        {/* <div> */}
+       {searchRes.length > 0 ?   
+            <div >
+              {searchRes.map(track=>(
+                <SearchResultsDropdown track={track} key={track.uri}/>
+              ))}
+            </div>
+            :
+            <div>
+            {!isLoading && recents?.body.items.map((item) => (
+              <SongRow track={item.track} key={item.played_at} chooseTrack={chooseTrack} trackUri={curPlayingTrack?.uri} />
+            ))}
+            </div>
+
        
+      }
         
-        {/* {!isLoading && recents?.body.items.track.map((item)=>
-          <SongRow track={item.track}/>
-        )} */}
-         {/* {recents.body !== undefined && recents.body.items.map((recent) => (
-            <SongRow track={recent.track} />
-         ))} */}
-       
-        {/* {recents?.body && recents.body.items.track.map((item)=>
-          <SongRow track={item.track}/>
-        )} */}
-
-
-        {/* this works below */}
-        {/* {!isLoading && new_releases?.body.albums.items.map((item) => (
-          <SongRow item={item} />
-        ))} */}
-         {!isLoading && recents?.body.items.map((item) => (
-          <SongRow track={item.track} key={item.played_at} chooseTrack={chooseTrack} trackUri={curPlayingTrack?.uri} />
-        ))}
-
-
-
-
       </div>
     
       
