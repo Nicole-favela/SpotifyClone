@@ -6,6 +6,7 @@
     /* allows cursor to show up and ease in color transition */
     cursor: pointer;
     transition: 200ms color ease-in; 
+    margin-bottom: 8px;
 
 }
 .sidebar > hr{
@@ -21,11 +22,13 @@
 .side-bar-icon{
     padding-left: 10px;
     padding-right: 10px;
+    
 }
 .sidebar-option p{
     margin-top: 10px;
     margin-left: 15px;
     font-size: 14px;
+    margin-bottom: 8px;
    
 
 

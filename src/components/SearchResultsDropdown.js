@@ -14,6 +14,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import BottomPlayer from './BottomPlayer';
 
 
 import './SearchResDropDown.css'
@@ -33,20 +34,20 @@ const darkTheme = createTheme({
   });
 
 
-export default function SearchResultsDropdown({track}) {
+export default function SearchResultsDropdown({track, chooseTrack}) {
     if(track){
         console.log("track is not umdefined", track)
     }
     function handlePlay(){
-        return true
-    }
+        chooseTrack(track);
+       
+    };
   return (
     
     // <Stack direction="row" spacing={2}>
     <ThemeProvider theme={darkTheme}>
         <List dense sx={{ width: '100%', maxWidth: '100%', bgcolor: 'background.paper',display: 'flex' }} >
-        <ListItem sx={{maxHeight: '50px',
-  }}>
+        <ListItem clasName = 'search-result-item' sx={{maxHeight: '70px', height: '60px', '&:hover': {backgroundColor: 'rgba(0, 0, 0, 0.7)',opacity: 0.7,},}}  onClick={handlePlay}>
 
 
 
@@ -54,7 +55,7 @@ export default function SearchResultsDropdown({track}) {
 
             <Avatar variant="square"
                         
-                    onClick={handlePlay}
+                  
                     src ={track.albumUrl} style={{height: '40px', width: '40px' }}
                 />
         </ListItemAvatar>
@@ -74,13 +75,16 @@ export default function SearchResultsDropdown({track}) {
             {/* TODO: allow favoriting and switch between filled and outlined */}
             {/* <FavoriteIcon fontSize='small' sx={{color: 'green'}}/> */}
             <FavoriteBorderIcon fontSize='small' sx={{color: 'white'}}/>
-            <Typography variant="subtitle2" sx={{color: 'grey', fontSize: '12px', marginBottom: '3px', marginTop: '2px',marginRight: '3px', marginLeft: '8px', flexDirection: 'column' }}>
+            <Typography variant="subtitle2" sx={{color: 'grey', fontSize: '12px', marginBottom: '3px', marginTop: '2px',marginRight: '3px', marginLeft: '12px', flexDirection: 'column' }}>
                        {track.artist}
              </Typography>
         </ListItem>
         </List>
        
-  
+       
    </ThemeProvider>
+   
+
+   
   )
 }

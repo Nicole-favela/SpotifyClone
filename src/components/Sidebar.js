@@ -22,7 +22,7 @@ export default function Sidebar() {
         <hr/>
           {/* playlist items */}
         {playlists?.body?.items?.map(playlist=>(
-        <SideBarOptions title={playlist.name}/>
+        <SideBarOptions title={playlist.name} img={playlist.images[0].url}/>
         ))}
         {/* <SideBarOptions title="rock"/>
         <SideBarOptions title="hip hop"/>

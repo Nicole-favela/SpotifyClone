@@ -12,6 +12,7 @@ import { useStateValue } from "../StateProvider";
 import { useEffect, useState } from 'react';
 import { TroubleshootSharp } from '@mui/icons-material';
 import SearchResultsDropdown from './SearchResultsDropdown';
+import BottomPlayer from './BottomPlayer';
 
 
 export default function Body({spotifyApi}) {
@@ -66,7 +67,7 @@ export default function Body({spotifyApi}) {
      {/* top header with avatar and search bar */}
      <Header searchRes={searchRes} setSearchRes={setSearchRes}/>
      {searchRes.length > 0 &&
-        <div className='top-search-res'>Top Result</div>
+        <h2>Top Result</h2>
       }
 
      {/* banner section */}
@@ -94,8 +95,11 @@ export default function Body({spotifyApi}) {
        {searchRes.length > 0 ?   
             <div >
               {searchRes.map(track=>(
-                <SearchResultsDropdown track={track} key={track.uri}/>
+                <SearchResultsDropdown track={track} key={track.uri} chooseTrack={chooseTrack} />
               ))}
+               
+                  <BottomPlayer trackUri={curPlayingTrack?.uri} />
+             
             </div>
             :
             <div>

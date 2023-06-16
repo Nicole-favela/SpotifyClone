@@ -40,7 +40,7 @@ export default function BottomPlayer({ trackUri}) {
                 sliderColor: '#1cb954',
                 trackArtistColor: '#ccc',
                 trackNameColor: '#fff',
-              }}
+            }}
         
         />
     

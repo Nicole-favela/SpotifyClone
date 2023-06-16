@@ -1,7 +1,17 @@
-.search-drop-down{
+/* .search-drop-down{
     background-color: rgb(4, 4, 245);
     border: none;
     width: 100%;
     outline: none;
     color:aqua
+} */
+.search-result-item{
+    border: 3px solid black;
+
+
+}
+.search-result-item:hover{
+    cursor: pointer;
+    background-color: black;
+    opacity: .7;
 }
