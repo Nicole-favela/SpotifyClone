@@ -41,7 +41,7 @@ export default function Player({code}) {
         type: "SET_SPOTIFY",
         spotifyApi: spotifyApi,
       });
-      spotifyApi.getUserPlaylists().then((playlists)=>{
+      spotifyApi.getUserPlaylists({ limit: 15}).then((playlists)=>{
         dispatch({
            type:'SET_USER_PLAYLISTS',
            playlists: playlists

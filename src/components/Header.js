@@ -37,7 +37,7 @@ export default function Header({searchRes, setSearchRes}) {
     //spotifyApi.setAccessToken(token)
 
     let cancel = false
-    spotifyApi.searchTracks(searchTerm).then(res=>{
+    spotifyApi.searchTracks(searchTerm,{ limit: 10}).then(res=>{
       if (cancel) return
       const result = res.body.tracks.items.map(track => {
         const smallestAlbumImage = track.album.images.reduce((smallest, image)=>{
