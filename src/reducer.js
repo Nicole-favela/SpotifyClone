@@ -8,6 +8,8 @@ export const initialState = {
     playingrn: null,
     isPlaying: null,
     spotifyApi: null,
+    sidebarplaylist: null,
+    musiclibrary: null,
 }
 
 const reducer = (state, action)=>{
@@ -61,6 +63,18 @@ const reducer = (state, action)=>{
             return{
                 ...state,
                 spotifyApi: action.spotifyApi,
+            }
+        case 'SET_SELECTED_PLAYLIST_FROM_SIDEBAR':
+            console.log('currently selected playlist set in reducer');
+            return{
+                ...state,
+                sidebarplaylist: action.sidebarplaylist,
+            }
+        case 'SET_MY_MUSIC_LIBRARY':
+            console.log('music library set in reducer');
+            return{
+                ...state,
+                musiclibrary: action.musiclibrary,
             }
         default:
             return state; //original unchanged state

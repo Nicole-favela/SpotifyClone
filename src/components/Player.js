@@ -55,6 +55,14 @@ export default function Player({code}) {
         })
 
       })
+      spotifyApi.getMySavedAlbums({limit: 16}).then((musiclibrary)=>{
+        dispatch({
+          type:'SET_MY_MUSIC_LIBRARY',
+          musiclibrary: musiclibrary
+
+        })
+
+      })
       spotifyApi.getMyCurrentPlayingTrack().then((playingrn)=>{
         dispatch({
           type:'SET_CURRENTLY_PLAYING_TRACK',

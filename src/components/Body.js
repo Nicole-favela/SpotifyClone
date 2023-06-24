@@ -20,9 +20,15 @@ export default function Body({spotifyApi}) {
   const [curPlayingTrack, setCurPlayingTrack] = useState()
   const [togglePlay, setTogglePlay] = useState(true)
   const [searchRes, setSearchRes]= useState([]);
+  const [sidebarplaylistselect, setsidebarplaylistselect] = useState({})
   
   //const [lastest, setLatest] = useState();//sets the latest album to play
-  const [{user, recents, token, playingrn, isPlaying}, dispatch] = useStateValue()
+  const [{user, recents, token, playingrn, isPlaying, sidebarplaylist}, dispatch] = useStateValue()
+  useEffect(()=>{
+      console.log("the side bar playlist clicked is: ", sidebarplaylist)
+      setsidebarplaylistselect(sidebarplaylist)
+  }, [sidebarplaylist])
+  
   function chooseTrack(track){
     setCurPlayingTrack(track)
     
@@ -41,7 +47,7 @@ export default function Body({spotifyApi}) {
  
   useEffect(()=>{
    
-    console.log("is pplaying state is: , ", isPlaying?.body?.is_playing)
+    //console.log("is pplaying state is: , ", isPlaying?.body?.is_playing)
       if(isPlaying?.body && isPlaying?.body.is_playing || isPlaying?.body?.device?.name === "Spotify Web Player" ){
         setTogglePlay(true)
       }
@@ -52,7 +58,7 @@ export default function Body({spotifyApi}) {
   }, [isPlaying])
   
   useEffect(()=>{
-    console.log("in body recent is: ", recents?.body)
+    //console.log("in body recent is: ", recents?.body)
     //console.log('new releases are: ', new_releases)
     
     setIsLoading(false)
@@ -60,10 +66,8 @@ export default function Body({spotifyApi}) {
   }, [recents])
  
   return (
-    
+    <>
     <div className='body'>
-     
-      
      {/* top header with avatar and search bar */}
      <Header searchRes={searchRes} setSearchRes={setSearchRes}/>
      {searchRes.length > 0 &&
@@ -119,15 +123,18 @@ export default function Body({spotifyApi}) {
               <SongRow track={item.track} key={item.played_at} chooseTrack={chooseTrack} trackUri={curPlayingTrack?.uri} />
             ))}
             </div>
-
        
       }
         
-      </div>
-    
-      
+      </div> 
     </div>
-    // </div>
+   
+
+     {/* playlist body to be rendered */}
+    
+  </>
+   // </div>
+   
     
   )
 }
