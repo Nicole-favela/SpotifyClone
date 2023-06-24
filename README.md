@@ -5,6 +5,7 @@ This spotify-like web app is built to look like your favorite digital music serv
 ## Includes:
 - User's recently played tracks
 - User's created playlists
+- User's music library albums
 - Music player
 - Search song/artist/album 
 
