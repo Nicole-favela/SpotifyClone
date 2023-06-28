@@ -10,6 +10,8 @@ export const initialState = {
     spotifyApi: null,
     sidebarplaylist: null,
     musiclibrary: null,
+    sidebarlibraryitem: null,
+    selectedSidebarOption: null,
 }
 
 const reducer = (state, action)=>{
@@ -75,6 +77,18 @@ const reducer = (state, action)=>{
             return{
                 ...state,
                 musiclibrary: action.musiclibrary,
+            }
+        case 'SET_LIBRARY_ITEM_FROM_SIDEBAR':
+            console.log('music library item from sidebar set in reducer');
+            return{
+                ...state,
+                sidebarlibraryitem: action.sidebarlibraryitem,
+             }
+        case 'SET_SELECTED_SIDEBAR_OPTION':
+            console.log('selected sidebar option set in reducer');
+            return {
+                ...state,
+                selectedSidebarOption: action.selectedOption,
             }
         default:
             return state; //original unchanged state

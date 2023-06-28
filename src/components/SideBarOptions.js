@@ -3,8 +3,8 @@ import './SideBarOptions.css'
 import { Avatar } from '@mui/material'
 import { useStateValue } from '../StateProvider';
 
-export default function SideBarOptions({title, img, Icon, playlist, showLibrary, setShowLibrary, onClick}) {
-  const [{playlists}, dispatch] = useStateValue()
+export default function SideBarOptions({title, img, Icon, onClick, trackinfo, showLibrary}) {
+  const [{sidebarlibraryitem, musiclibrary}, dispatch] = useStateValue()
   
   // function selectPlaylist(playlist){
   //   // playlists?.body.items[0].name
@@ -14,6 +14,33 @@ export default function SideBarOptions({title, img, Icon, playlist, showLibrary,
   //   });
 
   // }
+  // function selectTrackFromLibrary(track){
+  //   dispatch({
+  //     type: "SET_LIBRARY_ITEM_FROM_SIDEBAR",
+  //     sidebarlibraryitem: track,
+
+  //   })
+  // }
+  const handleLibraryItemSelection = (trackinfo) => {
+    if (trackinfo && showLibrary ){ //change this to a different value available to body
+      dispatch({
+        type: "SET_LIBRARY_ITEM_FROM_SIDEBAR",
+        sidebarlibraryitem: trackinfo,
+  
+      })
+  
+    }
+    else{
+      //console.log("track is null in sidebar")
+      dispatch({
+        type: "SET_LIBRARY_ITEM_FROM_SIDEBAR",
+        sidebarlibraryitem: null,
+  
+      })
+  
+    }
+  
+  };
   
   return (
     <div className='sidebar-option'>
@@ -28,7 +55,7 @@ export default function SideBarOptions({title, img, Icon, playlist, showLibrary,
       }
         {Icon ? 
           <h4 onClick={onClick} >{title}</h4> 
-          : <p >{title}</p>}
+          : <p onClick={()=> handleLibraryItemSelection(trackinfo)}>{title}</p>}
         
         {/* sidebar options */}
     </div>

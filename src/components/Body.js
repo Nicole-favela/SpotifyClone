@@ -15,19 +15,74 @@ import SearchResultsDropdown from './SearchResultsDropdown';
 import BottomPlayer from './BottomPlayer';
 
 
+
 export default function Body({spotifyApi}) {
   const [isLoading, setIsLoading] = useState(true);
   const [curPlayingTrack, setCurPlayingTrack] = useState()
   const [togglePlay, setTogglePlay] = useState(true)
   const [searchRes, setSearchRes]= useState([]);
-  const [sidebarplaylistselect, setsidebarplaylistselect] = useState({})
+  const [showSidebarLibary, setShowSidebarLibary] = useState(false)
+  const [bannerImg, setBannerImg]= useState('')
+  const [bannerText, setBannerText] = useState([])//array of strings
+  
   
   //const [lastest, setLatest] = useState();//sets the latest album to play
-  const [{user, recents, token, playingrn, isPlaying, sidebarplaylist}, dispatch] = useStateValue()
+  const [{user, recents, token, playingrn, isPlaying, sidebarplaylist, selectedSidebarOption, sidebarlibraryitem}, dispatch] = useStateValue()
   useEffect(()=>{
-      console.log("the side bar playlist clicked is: ", sidebarplaylist)
-      setsidebarplaylistselect(sidebarplaylist)
-  }, [sidebarplaylist])
+      console.log("the saved album on sidebar selected is : ", sidebarlibraryitem, "it has changed")
+      if (sidebarlibraryitem !== null){
+        setShowSidebarLibary(true) //the user clicked it, show the album
+      }
+      else{
+        setShowSidebarLibary(false)
+      }
+     
+  }, [sidebarlibraryitem])
+
+
+    //monitors change to update image on banner
+  useEffect(() => {
+    //showSidebarLibary ? sidebarlibraryitem?.images[0].url : (searchRes.length > 0 ? searchRes[0].albumUrl:  recents?.body.items[0].track.album.images[0].url)
+    //(showSidebarLibary && searchRes.length === 0) ? sidebarlibraryitem?.images[0].url : (searchRes.length > 0 ? searchRes[0].albumUrl : recents?.body.items[0].track.album.images[0].url);
+    //let image = (showSidebarLibary) ? sidebarlibraryitem?.images[0].url : (searchRes.length > 0 ? searchRes[0].albumUrl : recents?.body.items[0].track.album.images[0].url);
+    let image = (showSidebarLibary) ? sidebarlibraryitem?.images[0].url : recents?.body.items[0].track.album.images[0].url;
+    // console.log("tring to change image, image is: ",image)
+    // console.log("tring to change image, image is: ",image)
+    // let image = ''
+    // if(showSidebarLibary){
+    //   image = sidebarlibraryitem?.images[0].url 
+    // }
+    // if (searchRes.length > 0 ){
+    //   image = searchRes[0].albumUrl 
+    // }
+    
+    if (selectedSidebarOption === 'Home' || !selectedSidebarOption){
+      image = recents?.body.items[0].track.album.images[0].url
+    }
+    setBannerImg(image)
+    // do something with the image URL
+  }, [showSidebarLibary, searchRes, searchRes.length, sidebarlibraryitem, recents, selectedSidebarOption]);
+
+  //monitors change to update text in banner
+  useEffect(() => {
+   
+    //recents and library only
+   
+    
+    let strong_text = showSidebarLibary ? sidebarlibraryitem?.name :  'RECENTLY PLAYED';
+    let h2_text = showSidebarLibary ? ' ' : 'Jump back in';
+   
+    let p_tag_text = showSidebarLibary ? `${sidebarlibraryitem?.artists[0].name}\u2022${sidebarlibraryitem?.release_date.split('-')[0]}\u2022${sidebarlibraryitem?.total_tracks} songs` :  'your most recent picks';
+    setBannerText([strong_text, h2_text, p_tag_text])
+    if (selectedSidebarOption === 'Home'){
+      setBannerText(['RECENTLY PLAYED','Jump back in', 'your most recent picks'])
+    }
+    
+   
+    // do something with the image URL
+  }, [showSidebarLibary, sidebarlibraryitem, recents, selectedSidebarOption]);
+
+
   
   function chooseTrack(track){
     setCurPlayingTrack(track)
@@ -36,6 +91,7 @@ export default function Body({spotifyApi}) {
   // function playerIsPlaying(){
   //   setPlayStatus(isPlaying?.body.is_playing)
   // }
+  
   const handlePlayClick =()=>{
     //chooseTrack(playingrn?.body.item.TrackObject.album)
     return setTogglePlay(!togglePlay);
@@ -75,8 +131,14 @@ export default function Body({spotifyApi}) {
       }
 
      {/* banner section */}
+     {/* {selectedSidebarOption === null || selectedSidebarOption ==='Home' ? ():()} */}
      <div className='info'>
-        <img src={searchRes.length > 0 ? searchRes[0].albumUrl : recents?.body.items[0].track.album.images[0].url} alt="metro-boom"/>
+      {searchRes.length > 0 ? <img src = {searchRes[0].albumUrl }/> :
+        <img src={bannerImg} />
+      }
+
+        {/* {showSidebarLibary && (<img src= {sidebarlibraryitem?.images[0].url} alt="album-img"/> )}
+        {!showSidebarLibary && (<img src={searchRes.length > 0 ? searchRes[0].albumUrl : recents?.body.items[0].track.album.images[0].url} alt="metro-boom"/>)} */}
         {/* {token && (<p>we have our token</p>)} */}
         {/* {user && (<p>we have our user as {user.body.display_name}</p>)} */}
         {searchRes.length > 0 ?
@@ -89,14 +151,29 @@ export default function Body({spotifyApi}) {
         </div>
 
         :
+        
         <div className='info-text'>
-        <strong>RECENTLY PLAYED </strong>
-        <h2>Jump back in</h2>
-        <p>your most recent picks</p>
+          {/* <strong> {!showSidebarLibary ? 'RECENTLY PLAYED' : 'Library playlist'}</strong>
+          <h2>{!showSidebarLibary ? 'Jump back in' : 'Library playlist'}</h2>
+          <p>{!showSidebarLibary ? 'your most recent picks' : 'Library playlist'}</p> */}
+           <strong>{bannerText[0]}</strong>
+          <h2>{bannerText[1]}</h2>
+          <p>{bannerText[2]}</p>
 
-      </div>
+         </div>
         }
+        {/* {!showSidebarLibary &&
+        (
+          <div className='info-text'>
+          <strong>library playlist </strong>
+          <h2>Jump back in</h2>
+          <p>your most recent picks</p>
+  
         </div>
+        )
+
+        } */}
+    </div>
         
       
       <div className='body-songs'>
@@ -130,8 +207,6 @@ export default function Body({spotifyApi}) {
     </div>
    
 
-     {/* playlist body to be rendered */}
-    
   </>
    // </div>
    

@@ -11,28 +11,39 @@ import { useStateValue } from '../StateProvider';
 import { useState } from 'react';
 
 export default function Sidebar() {
-  const [{playlists, musiclibrary}, dispatch] = useStateValue()
+  const [{playlists, musiclibrary,  sidebarlibraryitem}, dispatch] = useStateValue()
   const [showLibrary, setShowLibrary] = useState(false)
   const [showHome, setShowHome] = useState(false)
-  const handleHomeClick = () => {
-    setShowLibrary(false);
-  };
+//   const handleHomeClick = () => {
+//     setShowLibrary(false);
+//   };
   
-  const handleSearchClick = () => {
-    setShowLibrary(false);
-  };
-  const handleLibraryClick = () => {
-    setShowLibrary(true);
+//   const handleSearchClick = () => {
+//     setShowLibrary(false);
+//   };
+//   const handleLibraryClick = () => {
+//     setShowLibrary(true);
   
- }
+//  }
+const handleSidebarOptionClick = (option) => {
+  if(option ==='Your Library'){
+    setShowLibrary(true)
+  }
+  if(option ==='Home'){
+    setShowLibrary(false)
+  }
+  dispatch({ type: 'SET_SELECTED_SIDEBAR_OPTION', selectedOption: option });
+}
+
+ 
   
   
   return (
     <div className='sidebar'>
         <img className='logo' src={spotifylogo} alt="spotify-logo"/>
-        <SideBarOptions Icon ={HomeOutlinedIcon} title="Home" onClick={ handleHomeClick}/>
-        <SideBarOptions Icon={SearchOutlinedIcon} title ="Search" onClick={handleSearchClick}/>
-        <SideBarOptions  Icon={LibraryMusicOutlinedIcon}  title ="Your Library" onClick={handleLibraryClick}/>
+        <SideBarOptions Icon ={HomeOutlinedIcon} title="Home" onClick={() => handleSidebarOptionClick('Home')}/>
+        <SideBarOptions Icon={SearchOutlinedIcon} title ="Search" onClick={() => handleSidebarOptionClick('Search')}/>
+        <SideBarOptions  Icon={LibraryMusicOutlinedIcon}  title ="Your Library" onClick={() => handleSidebarOptionClick('Your Library')}/>
         <br/>
         {showLibrary ?
         <>
@@ -40,7 +51,7 @@ export default function Sidebar() {
         <hr/>
           {/* playlist items */}
         {musiclibrary?.body?.items?.map(track=>(
-        <SideBarOptions  title={track.album.name} img={track.album.images[0].url} />
+        <SideBarOptions  title={track.album.name} img={track.album.images[0].url} trackinfo={track.album} showLibrary={showLibrary}/>
         ))}
         </>
 
