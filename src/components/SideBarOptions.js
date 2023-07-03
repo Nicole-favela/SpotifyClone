@@ -3,8 +3,8 @@ import './SideBarOptions.css'
 import { Avatar } from '@mui/material'
 import { useStateValue } from '../StateProvider';
 
-export default function SideBarOptions({title, img, Icon, onClick, trackinfo, showLibrary}) {
-  const [{sidebarlibraryitem, musiclibrary}, dispatch] = useStateValue()
+export default function SideBarOptions({title, img, Icon, onClick, trackinfo, showLibrary, musiclibrary}) {
+  const [{sidebarlibraryitem}, dispatch] = useStateValue()
   
   // function selectPlaylist(playlist){
   //   // playlists?.body.items[0].name
@@ -26,6 +26,7 @@ export default function SideBarOptions({title, img, Icon, onClick, trackinfo, sh
       dispatch({
         type: "SET_LIBRARY_ITEM_FROM_SIDEBAR",
         sidebarlibraryitem: trackinfo,
+        musiclibrary: musiclibrary.body,
   
       })
   
@@ -35,6 +36,7 @@ export default function SideBarOptions({title, img, Icon, onClick, trackinfo, sh
       dispatch({
         type: "SET_LIBRARY_ITEM_FROM_SIDEBAR",
         sidebarlibraryitem: null,
+        musiclibrary: musiclibrary.body,
   
       })
   

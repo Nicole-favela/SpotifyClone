@@ -4,28 +4,24 @@ import './SongRow.css'
 import BottomPlayer from './BottomPlayer'
 import { useStateValue } from '../StateProvider'
 import { useState } from 'react'
-
-export default function SongRow({track, chooseTrack, trackUri }) {
+ //allows user to view songs in library album
+export default function LibraryRow({track, chooseTrack, trackUri }) {
   
-  const [{token, recents, new_releases}, dispatch] = useStateValue()
+  const [{token}, dispatch] = useStateValue()
   function handlePlay(){
     chooseTrack(track);
-    // playerIsPlaying(true);
   };
  
  
   return (
     <>
-   
     <div className='song-row' onClick={handlePlay}>
-        <img  className ='song-album' src={track.album.images[0].url} alt=""/>
         <div className='song-info'>
-            <h4>{track.album.name}</h4>
+            <h4>{track.name}</h4>
             <p>
               
 
-                {track.artists.map((artist) => artist.name).join(", ")} -{" "}
-                {track.album.name}
+                {track.artists.map((artist) => artist.name).join(", ")} 
             </p>
         </div>
        

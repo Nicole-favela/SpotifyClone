@@ -50,8 +50,9 @@ const handleSidebarOptionClick = (option) => {
         <strong className='title'>LIBRARY</strong>
         <hr/>
           {/* playlist items */}
-        {musiclibrary?.body?.items?.map(track=>(
-        <SideBarOptions  title={track.album.name} img={track.album.images[0].url} trackinfo={track.album} showLibrary={showLibrary}/>
+          
+        {musiclibrary?.body?.items?.map((track,index)=>(
+        <SideBarOptions key={index} title={track.album.name} img={track.album.images[0].url} trackinfo={track} showLibrary={showLibrary}  musiclibrary={musiclibrary}/>
         ))}
         </>
 
