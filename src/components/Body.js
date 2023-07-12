@@ -105,6 +105,10 @@ export default function Body({spotifyApi}) {
    
     // do something with the image URL
   }, [showSidebarLibary, libraryRow, sidebarlibraryitem, recents, selectedSidebarOption]);
+  function chooseTrack(track){
+    setCurPlayingTrack(track)
+    
+  }
   function renderLibrary() {
     return sidebarlibraryitem?.album.tracks.items.map((item, index) => (
       <LibraryRow
@@ -117,10 +121,7 @@ export default function Body({spotifyApi}) {
   }
 
   
-  function chooseTrack(track){
-    setCurPlayingTrack(track)
-    
-  }
+ 
   // function playerIsPlaying(){
   //   setPlayStatus(isPlaying?.body.is_playing)
   // }
@@ -147,9 +148,7 @@ export default function Body({spotifyApi}) {
   }, [isPlaying])
   
   useEffect(()=>{
-    //console.log("in body recent is: ", recents?.body)
-    //console.log('new releases are: ', new_releases)
-    
+   
     setIsLoading(false)
 
   }, [recents])
@@ -158,7 +157,8 @@ export default function Body({spotifyApi}) {
     <>
     <div className='body'>
      {/* top header with avatar and search bar */}
-     <Header searchRes={searchRes} setSearchRes={setSearchRes}/>
+     <Header searchRes={searchRes} setSearchRes={setSearchRes} 
+    />
      {searchRes.length > 0 &&
         <h2>Top Result</h2>
       }
@@ -167,7 +167,7 @@ export default function Body({spotifyApi}) {
      {/* {selectedSidebarOption === null || selectedSidebarOption ==='Home' ? ():()} */}
      <div className='info'>
       
-      {searchRes.length > 0 ? <img src = {searchRes[0].albumUrl }/> :
+      {searchRes.length > 0 ? <img src = {searchRes[0].largeImg }/> :
         <img src={bannerImg} />
       }
 
@@ -233,7 +233,12 @@ export default function Body({spotifyApi}) {
       
       {libraryRow && <>
         <div>
-            {renderLibrary()}
+            {/* {renderLibrary()} */}
+            <div>
+          {!isLoading && sidebarlibraryitem?.album.tracks.items.map(item => (
+            <LibraryRow track={item} key={item.id} chooseTrack={chooseTrack} trackUri={curPlayingTrack?.uri} />
+          ))}
+          </div>
         </div>
         </>
         }

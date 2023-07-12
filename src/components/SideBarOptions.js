@@ -6,21 +6,7 @@ import { useStateValue } from '../StateProvider';
 export default function SideBarOptions({title, img, Icon, onClick, trackinfo, showLibrary, musiclibrary}) {
   const [{sidebarlibraryitem}, dispatch] = useStateValue()
   
-  // function selectPlaylist(playlist){
-  //   // playlists?.body.items[0].name
-  //   dispatch({
-  //     type: "SET_SELECTED_PLAYLIST_FROM_SIDEBAR",
-  //     sidebarplaylist: playlist,
-  //   });
-
-  // }
-  // function selectTrackFromLibrary(track){
-  //   dispatch({
-  //     type: "SET_LIBRARY_ITEM_FROM_SIDEBAR",
-  //     sidebarlibraryitem: track,
-
-  //   })
-  // }
+  
   const handleLibraryItemSelection = (trackinfo) => {
     if (trackinfo && showLibrary ){ //change this to a different value available to body
       dispatch({
@@ -31,16 +17,16 @@ export default function SideBarOptions({title, img, Icon, onClick, trackinfo, sh
       })
   
     }
-    else{
-      //console.log("track is null in sidebar")
-      dispatch({
-        type: "SET_LIBRARY_ITEM_FROM_SIDEBAR",
-        sidebarlibraryitem: null,
-        musiclibrary: musiclibrary.body,
+    // else{
+    //   //console.log("track is null in sidebar")
+    //   dispatch({
+    //     type: "SET_LIBRARY_ITEM_FROM_SIDEBAR",
+    //     sidebarlibraryitem: null,
+    //     musiclibrary: musiclibrary.body,
   
-      })
+    //   })
   
-    }
+    // }
   
   };
   

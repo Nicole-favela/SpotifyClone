@@ -9,6 +9,7 @@ export default function LibraryRow({track, chooseTrack, trackUri }) {
   
   const [{token}, dispatch] = useStateValue()
   function handlePlay(){
+    console.log('for debugging library row the track chosen is: ', track)
     chooseTrack(track);
   };
  
@@ -19,8 +20,7 @@ export default function LibraryRow({track, chooseTrack, trackUri }) {
         <div className='song-info'>
             <h4>{track.name}</h4>
             <p>
-              
-
+            
                 {track.artists.map((artist) => artist.name).join(", ")} 
             </p>
         </div>

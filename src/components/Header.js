@@ -9,6 +9,7 @@ import SearchResultsDropdown from './SearchResultsDropdown';
 
 export default function Header({searchRes, setSearchRes}) {
   const [{user, spotifyApi, token}, dispatch] = useStateValue()
+  
   const [searchTerm, setSearchTerm] = useState('');
   // const [searchRes, setSearchRes]= useState([]);//MOVED TO PARENT-BODY
   //TODO: add choosetrack param to choose the song to pass into bottomplayer and update in body
@@ -44,12 +45,19 @@ export default function Header({searchRes, setSearchRes}) {
           if (image.height < smallest.height) return image
           return smallest
         }, track.album.images[0])
-
+        // largest image for top result
+        const largestAlbumImage = track.album.images.reduce((largest, image) => {
+          if (image.height > largest.height) return image
+          return largest
+        }, track.album.images[0])
+        
+      
         return {
           artist: track.artists[0].name,
           title: track.name,
           uri: track.uri,
           albumUrl: smallestAlbumImage.url,
+          largeImg: largestAlbumImage.url,
         }
       })
       setSearchRes(result)
