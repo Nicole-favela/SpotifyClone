@@ -27,7 +27,6 @@ export default function Body({spotifyApi}) {
   const [bannerText, setBannerText] = useState('')//array of strings
   const [libraryRow, setLibraryRow] = useState(false)
   
-  
   //const [lastest, setLatest] = useState();//sets the latest album to play
   const [{user, recents, token, playingrn, isPlaying, sidebarplaylist, selectedSidebarOption, sidebarlibraryitem}, dispatch] = useStateValue()
   useEffect(()=>{
@@ -61,20 +60,8 @@ export default function Body({spotifyApi}) {
 
     //monitors change to update image on banner
   useEffect(() => {
-    //showSidebarLibary ? sidebarlibraryitem?.images[0].url : (searchRes.length > 0 ? searchRes[0].albumUrl:  recents?.body.items[0].track.album.images[0].url)
-    //(showSidebarLibary && searchRes.length === 0) ? sidebarlibraryitem?.images[0].url : (searchRes.length > 0 ? searchRes[0].albumUrl : recents?.body.items[0].track.album.images[0].url);
-    //let image = (showSidebarLibary) ? sidebarlibraryitem?.images[0].url : (searchRes.length > 0 ? searchRes[0].albumUrl : recents?.body.items[0].track.album.images[0].url);
+   
     let image = (showSidebarLibary) ? sidebarlibraryitem?.album.images[0].url : recents?.body.items[0].track.album.images[0].url;
-    
-    // console.log("tring to change image, image is: ",image)
-    // console.log("tring to change image, image is: ",image)
-    // let image = ''
-    // if(showSidebarLibary){
-    //   image = sidebarlibraryitem?.images[0].url 
-    // }
-    // if (searchRes.length > 0 ){
-    //   image = searchRes[0].albumUrl 
-    // }
     
     if (selectedSidebarOption === 'Home' || !selectedSidebarOption){
       image = recents?.body.items[0].track.album.images[0].url
@@ -84,11 +71,7 @@ export default function Body({spotifyApi}) {
   }, [showSidebarLibary, searchRes, searchRes.length, sidebarlibraryitem, recents, selectedSidebarOption]);
 
   //monitors change to update text in banner and libraryrow
-  useEffect(() => {
-   
-    //recents and library only
-   
-    
+  useEffect(() => { 
     let strong_text = showSidebarLibary ? sidebarlibraryitem?.album.name :  'RECENTLY PLAYED';
     let h2_text = showSidebarLibary ? ' ' : 'Jump back in';
    
@@ -102,8 +85,6 @@ export default function Body({spotifyApi}) {
       setBannerText(['RECENTLY PLAYED','Jump back in', 'your most recent picks'])
     }
     
-   
-    // do something with the image URL
   }, [showSidebarLibary, libraryRow, sidebarlibraryitem, recents, selectedSidebarOption]);
   function chooseTrack(track){
     setCurPlayingTrack(track)
@@ -121,10 +102,6 @@ export default function Body({spotifyApi}) {
   }
 
   
- 
-  // function playerIsPlaying(){
-  //   setPlayStatus(isPlaying?.body.is_playing)
-  // }
   
   const handlePlayClick =()=>{
     //chooseTrack(playingrn?.body.item.TrackObject.album)
@@ -171,10 +148,6 @@ export default function Body({spotifyApi}) {
         <img src={bannerImg} />
       }
 
-        {/* {showSidebarLibary && (<img src= {sidebarlibraryitem?.images[0].url} alt="album-img"/> )}
-        {!showSidebarLibary && (<img src={searchRes.length > 0 ? searchRes[0].albumUrl : recents?.body.items[0].track.album.images[0].url} alt="metro-boom"/>)} */}
-        {/* {token && (<p>we have our token</p>)} */}
-        {/* {user && (<p>we have our user as {user.body.display_name}</p>)} */}
         {searchRes.length > 0 ?
         <div className='info-text'>
            <h2>{searchRes[0].title}</h2>
@@ -187,9 +160,7 @@ export default function Body({spotifyApi}) {
         :
         
         <div className='info-text'>
-          {/* <strong> {!showSidebarLibary ? 'RECENTLY PLAYED' : 'Library playlist'}</strong>
-          <h2>{!showSidebarLibary ? 'Jump back in' : 'Library playlist'}</h2>
-          <p>{!showSidebarLibary ? 'your most recent picks' : 'Library playlist'}</p> */}
+          
            <strong>{bannerText[0]}</strong>
           <h2>{bannerText[1]}</h2>
           <p>{bannerText[2]}</p>
@@ -218,18 +189,7 @@ export default function Body({spotifyApi}) {
           <MoreHorizOutlinedIcon />
 
         </div>
-        {/* {(showSidebarLibary ) &&
-        (
-         //<p>{sidebarlibraryitem?.album.tracks.items.map((item) =>item.name)}</p>
-          <div>
-          {!isLoading && sidebarlibraryitem?.album.tracks.items.map((item, index) => (
-            <LibraryRow track={item} key={index} chooseTrack={chooseTrack} trackUri={curPlayingTrack?.uri} />
-          ))}
-          </div>
-        )
-        
-
-      } */}
+     
       
       {libraryRow && <>
         <div>
